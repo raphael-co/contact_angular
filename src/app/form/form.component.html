@@ -9,18 +9,14 @@
 </head>
 
 <body>
-    <p>Nom Complet<input [(ngModel)]="name"></p>
-    <p>Pseudo<input [(ngModel)]="Pseudo"></p>
-    <p>Email<input [(ngModel)]="Email"></p>
+    <form [formGroup]="bioSection" (ngSubmit)="callingFunction()"> 
+    <p>Nom Complet<input formControlName="name"></p>
+    <p>Pseudo<input formControlName="Pseudo"></p>
+    <p>Email<input formControlName="Email"></p>
 
-    <button (click)="form()"> Ajouter</button>
-
-    <!-- <div *ngFor="let x of arr; let index = index;">
-
-        <button (click)="Recup(x.id,x)">{{ x.name }}</button>
-
-    </div> -->
-
+    <button type="submit" [disabled]="!bioSection.valid"> Ajouter</button>
+</form>
+<span class="badge">{{erreur}}</span>
 
     <h2>Contact</h2>
     <ul class="heroes">
@@ -29,7 +25,7 @@
         </li>
     </ul>
 
-    <app-profile [selectedHero]="selectedHero" [test2]="test2" [tabpos]="tabpos"  >
+    <app-profile [selectedHero]="selectedHero" [tabpos]="tabpos"  >
 
     </app-profile>
 

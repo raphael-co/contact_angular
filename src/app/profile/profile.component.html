@@ -1,25 +1,10 @@
-<!-- <p>profile works!</p>
-<div>
-  <div *ngFor=" let index = index;let x of arr | taskFilter: id">
-
-    nom : <input [(ngModel)]="x.name"><br>
-    email : <input [(ngModel)]="x.Email" value="{{x.Email}}"><br>
-    pseudo : <input [(ngModel)]="x.Pseudo" value="{{x.Pseudo}}"><br>
-    id : {{ x.id }}
-
-    <button (click)="form(index)">mettre a jour</button>
-  </div>
-</div> -->
-
-
-
 <div *ngIf="selectedHero">
-
-  <!-- <h2>{{selectedHero.name | uppercase}} Details</h2> -->
-  <div><span>id: </span>{{selectedHero.id}}</div>
+  <div><span>Id: </span>{{selectedHero.id}}</div>
   <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name"  (change)="changeUserName($event)">
+    <label for="hero-name">Contact Name: </label>
   </div>
+  <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name" (change)="changeUserName()">
+  <div><span>Email: </span>{{selectedHero.Email}}</div>
+  <div><span>Pseudo: </span>{{selectedHero.Pseudo}}</div>
 
-</div> 
+</div>

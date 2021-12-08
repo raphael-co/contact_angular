@@ -1,7 +1,15 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Arr } from '../models/arr';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
+import { Validators } from '@angular/forms';
 
+
+export class Arr {
+  name!: string;
+  Pseudo!: string;
+  Email!: string;
+  id!: number;
+}
 
 @Component({
   selector: 'app-form',
@@ -11,118 +19,67 @@ import { Arr } from '../models/arr';
 export class FormComponent implements OnInit {
 
   arr: Arr[] = [];
-
   test: Arr[] = []
 
   public id: number = 0;
-
-  public name: any;
-
-  public Pseudo: any;
-
-  public Email: any;
-
+  public erreur: any;
   public jsonX: any;
-
-
-  tabpos:number=0
+  tabpos: number = 0
   heroes = this.arr;
   selectedHero!: Arr;
+  test2: string = ""
+  constructor(private formBuilder: FormBuilder) { }
 
-  test2: string= ""
-  constructor() { }
+  bioSection = new FormGroup({
+    name: new FormControl(''),
+    Pseudo: new FormControl(''),
+    Email: new FormControl(''),
+  });
 
-  ngOnInit() {
-    this.arr = JSON.parse(localStorage.getItem('contact') || '')
-
-  }
-
-  changeUserName(e: any) {
-    console.log(e);
-    console.log(this.heroes)
-  }
-
-
-
-  onSelect(hero: Arr, index: number): void {
-
-    console.log(this.test2)
-    this.selectedHero = hero;
-    this.test2 = this.selectedHero.name
-    console.log(this.test2)
-    console.log("re")
-    this.tabpos=index
-    let json = {
-      id: this.arr[index].id,
-      name: this.test2,
-      Pseudo: this.arr[index].Pseudo,
-      Email: this.arr[index].Email,
+  callingFunction() {
+    if (!this.bioSection.value.Email || !this.bioSection.value.Pseudo || !this.bioSection.value.name) {
+      this.erreur = "il faut au moins 1 caractere par champs"
     }
-
-    // if (this.test2 !== this.test2) {
-    //   this.arr.push(json);
-    //   localStorage.setItem('contact', JSON.stringify(this.arr));
-    // } else {
-    //   console.log("hello")
-    // }
-    // console.log(json)
-    // this.arr.push(json);
-    // localStorage.setItem('contact', JSON.stringify(this.arr));
-    // this.arr.splice(index, 1)
-    // localStorage.setItem('contact', JSON.stringify(this.arr));
-
-  }
-
-
-
-
-  //form
-
-  form() {
-
-    if (!this.name || !this.Pseudo || !this.Email) {
-      return console.log('pas bon')
-    }
-
     else {
+      this.erreur = "succés de l'enregistrement"
+
       if (this.arr.length == 0) {
         let json = {
           id: 1,
-          name: this.name,
-          Pseudo: this.Pseudo,
-          Email: this.Email,
+          name: this.bioSection.value.name,
+          Pseudo: this.bioSection.value.Pseudo,
+          Email: this.bioSection.value.Email,
         }
         this.arr.push(json);
         localStorage.setItem('contact', JSON.stringify(this.arr));
-        this.name = "";
-        this.Pseudo = "";
-        this.Email = "";
       }
       else {
         let m = this.arr.length - 1
         let json = {
           id: this.arr[m].id + 1,
-          name: this.name,
-          Pseudo: this.Pseudo,
-          Email: this.Email,
+          name: this.bioSection.value.name,
+          Pseudo: this.bioSection.value.Pseudo,
+          Email: this.bioSection.value.Email,
         }
         this.arr.push(json);
         localStorage.setItem('contact', JSON.stringify(this.arr));
-        this.name = "";
-        this.Pseudo = "";
-        this.Email = "";
       }
     }
 
+
+  }
+  ngOnInit() {
+    this.arr = JSON.parse(localStorage.getItem('contact') || '')
+
+  }
+
+  onSelect(hero: Arr, index: number): void {
+    this.selectedHero = hero;
+    this.tabpos = index
   }
 
   Recup(id: number, x: Arr) {
-    // console.log(id)
     this.id = id
-    this.name = name
-
-
-
     this.jsonX = {
       id: x.id,
       name: x.name,
@@ -131,12 +88,6 @@ export class FormComponent implements OnInit {
     }
 
     this.jsonX = JSON.stringify(this.jsonX)
-    console.log(this.jsonX)
-
-
-    // alert( JSON.stringify(this.jsonX) )
-
-
 
   }
 
