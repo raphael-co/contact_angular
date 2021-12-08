@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Nom Complet<input [(ngModel)]="name"></p>
+    <p>Pseudo<input [(ngModel)]="Pseudo"></p>
+    <p>Email<input [(ngModel)]="Email"></p>
+
+    <button (click)="form()"> Ajouter</button>
+
+    <!-- <div *ngFor="let x of arr; let index = index;">
+
+        <button (click)="Recup(x.id,x)">{{ x.name }}</button>
+
+    </div> -->
+
+
+    <h2>Contact</h2>
+    <ul class="heroes">
+        <li *ngFor="let hero of arr;let index = index;" [class.selected]="hero === selectedHero" (click)="onSelect(hero,index)">
+            <span class="badge">{{hero.id}}</span> {{hero.name}}
+        </li>
+    </ul>
+
+    <app-profile [selectedHero]="selectedHero" [test2]="test2" [tabpos]="tabpos"  >
+
+    </app-profile>
+
+
+</body>
+
+</html>
